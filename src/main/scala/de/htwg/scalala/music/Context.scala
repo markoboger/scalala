@@ -5,6 +5,7 @@ import javax.sound.midi.{ MidiSystem, Receiver }
 
 object Context {
   val player = Player(MidiSystem.getReceiver())
+  var timeSignature = TimeSignature(4, 4)
   var octave = 4
   var bpm = 80
   var fraction: Double = 0.25

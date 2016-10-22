@@ -2,8 +2,8 @@
 package de.htwg.scalala.midi
 
 import de.htwg.scalala.midi._
-import Notes._
 import events.{ NoteOn, NoteOff }
+import de.htwg.scalala.music.Key
 
 import javax.sound.midi.{ MidiSystem, Receiver }
 import javax.sound.sampled.{ AudioInputStream, LineEvent, LineListener, AudioSystem }
@@ -17,6 +17,14 @@ case class Player(receiver: Receiver = MidiSystem.getReceiver()) {
     receiver.send(NoteOn(0, key, volume), -1)
     Thread.sleep(duration)
     receiver.send(NoteOff(0, key, volume), -1)
+  }
+  def play(set: Set[Key]): Unit = {
+    val duration = set.toVector(0).duration
+    val volume = set.toVector(0).volume
+    set.foreach { key => start(key = key.midiNumber, volume) }
+    Thread.sleep(duration)
+    set.foreach { key => stop(key.midiNumber, volume) }
+    //set.map(_.toString)
   }
   def play(notes: List[Int]): Unit = {
     notes.foreach { note: Int => play(note) }

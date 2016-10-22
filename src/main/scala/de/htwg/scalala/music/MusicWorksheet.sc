@@ -1,42 +1,36 @@
 package de.htwg.scalala.music
 
+import player._
 import notes._
 import chords._
-import player._
+ 
 import scala.language.postfixOps
-
  
+  
 object MusicWorksheet {
-  
-  val c = Key(0,4)                                //> c  : de.htwg.scalala.music.Key = c¼
-  c.toString                                      //> res0: String = c¼
 
-  c.duration                                      //> res1: Int = 750
- 
-      
-  c+                                              //> res2: de.htwg.scalala.music.Key = c'¼
-     
-  c++                                             //> res3: de.htwg.scalala.music.Key = c"¼
+  val key1 = Key(0, 4)                            //> key1  : de.htwg.scalala.music.Key = c
+  val key2 = Key(12,3)                            //> key2  : de.htwg.scalala.music.Key = c,
+  val key3 = Key(24,2)                            //> key3  : de.htwg.scalala.music.Key = c,,
+   
+  val chord1 =  Chord(Set(c,d,e))                 //> chord1  : de.htwg.scalala.music.Chord = [()]
+  val chord2 = Chord(f,g, a , c+, e+)             //> chord2  : de.htwg.scalala.music.Chord = [()]
+  val Cmaj = Chord(c, ChordQuality.Major)         //> Cmaj  : de.htwg.scalala.music.Chord = Cmaj
+  val Dmaj = Chord(d, ChordQuality.Major)         //> Dmaj  : de.htwg.scalala.music.Chord = Dmaj
+  val Emaj = Chord(e, ChordQuality.Major)         //> Emaj  : de.htwg.scalala.music.Chord = Emaj
+  val Fmaj = Chord(f, ChordQuality.Major)         //> Fmaj  : de.htwg.scalala.music.Chord = Fmaj
   
-  c-                                              //> res4: de.htwg.scalala.music.Key = c,¼
+  val Cmaj2:Chord = c.maj                         //> Cmaj2  : de.htwg.scalala.music.Chord = Cmaj
+  val Dmaj2= d.maj                                //> Dmaj2  : de.htwg.scalala.music.Chord = Dmaj
+   
+  (c.maj).play
+  play(List(c.maj, d.maj))                        //> res0: <error> = ()
+  
+    val charmony = List(c.dur, d.mol, e.mol, f.dur, g.dur, a.mol, b.dim)
+                                                  //> charmony  : List[de.htwg.scalala.music.Chord] = List(Cmaj, Dmin, Emin, Fmaj,
+                                                  //|  Gmaj, Amin, Bdim)
     
-  c--                                             //> res5: de.htwg.scalala.music.Key = c,,¼
-    
-  c!                                              //> res6: de.htwg.scalala.music.Key = c¼
-  
-  c?                                              //> res7: de.htwg.scalala.music.Key = c¼
-  
-  c4.toString                                     //> res8: String = c¼
-  c1.toString                                     //> res9: String = c
- 
-  play((c,e,g))                                   //> res10: <error> = Set(c¼, e¼, g¼)
-  play((d,f,a))                                   //> res11: <error> = Set(d¼, f¼, a¼)
-  play(Cdur)                                      //> res12: <error> = Set(c¼, e¼, g¼)
-  play((c-,c,e,g,c+,e+ ))                         //> res13: <error> = Set(c'¼, e'¼, g¼, e¼, c¼, c,¼)
-  play(c4!)                                       //> res14: <error> = c¼
-  play(d4?)                                       //> res15: <error> = d¼
-  play(List(c!,d,e,f!,g?, a, b))                  //> res16: <error> = List(c¼, d¼, e¼, f¼, g¼, a¼, b¼)
-  play(List(c1, d4,d4,e2))                        //> res17: <error> = List(c, d¼, d¼, e½)
+    play(charmony)                                //> res1: <error> = ()
   
   
 }
