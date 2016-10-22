@@ -1,6 +1,6 @@
 package de.htwg.scalala.music
 
-case class Measure(timeSignature: TimeSignature=Context.timeSignature, music: Music*) extends Music {
+case class Measure(timeSignature: TimeSignature, music: Music*) extends Music {
   override def foreach[U](f: Music => U) = music foreach f
   override def toString: String = s"Measure($timeSignature, $music)"
 
