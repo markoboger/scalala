@@ -4,7 +4,7 @@ import de.htwg.scalala.midi.Player
 import javax.sound.midi.{ MidiSystem, Receiver }
 
 object Context {
-  val player = Player(MidiSystem.getReceiver())
+  val player = new Player
   var timeSignature = TimeSignature(4, 4)
   var octave = 4
   var bpm = 80

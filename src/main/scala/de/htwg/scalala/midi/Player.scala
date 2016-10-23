@@ -2,15 +2,19 @@
 package de.htwg.scalala.midi
 
 import de.htwg.scalala.midi._
-import events.{ NoteOn, NoteOff }
+import events.{ NoteOn, NoteOff, ProgramChange }
 import de.htwg.scalala.music.Key
 
-import javax.sound.midi.{ MidiSystem, Receiver }
+import javax.sound.midi.{ MidiSystem, Receiver , Synthesizer}
 import javax.sound.sampled.{ AudioInputStream, LineEvent, LineListener, AudioSystem }
 import java.io.File
 import java.net.URL
 
-case class Player(receiver: Receiver = MidiSystem.getReceiver()) {
+case class Player() {
+  
+  val synthesizer = MidiSystem.getSynthesizer
+  synthesizer.open()
+  val receiver = synthesizer.getReceiver
 
   def play: Unit = play(key = 60, duration = 800, volume = 93)
   def play(key: Int = 60, duration: Int = 800, volume: Int = 93): Unit = {
@@ -26,6 +30,7 @@ case class Player(receiver: Receiver = MidiSystem.getReceiver()) {
     set.foreach { key => stop(key.midiNumber, volume) }
     //set.map(_.toString)
   }
+  
   def play(notes: List[Int]): Unit = {
     notes.foreach { note: Int => play(note) }
   }
@@ -49,6 +54,20 @@ case class Player(receiver: Receiver = MidiSystem.getReceiver()) {
 
   def stop(key: Int, volume: Int): Unit = {
     receiver.send(NoteOff(0, key, volume), 4000)
+  }
+  
+  def changeToInstrument(instrumentID:Int = 0) = {
+    synthesizer.open
+    val soundBank = synthesizer.getDefaultSoundbank
+    val instruments = soundBank.getInstruments
+    val instrument=instruments(instrumentID)
+    val channels = synthesizer.getChannels
+    val channel = channels(4) 
+    receiver.send(NoteOn(0, 60, 100), -1)
+    synthesizer.loadInstrument(instrument) 
+    receiver.send(ProgramChange(4,4), -1)
+    receiver.send(NoteOn(0,70,100), -1)
+     Thread.sleep(800)
   }
 
 }
