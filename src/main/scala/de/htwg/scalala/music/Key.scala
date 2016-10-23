@@ -1,7 +1,5 @@
 package de.htwg.scalala.music
 
-import notes._
-
 case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Double = Context.fraction, volume: Int = Context.volume) extends Music {
   if (keynumber >= 12) {
     keynumber = keynumber % 12

@@ -1,8 +1,5 @@
 package de.htwg.scalala.music
 
-import notes._
-import player._
-
 case class Chord(set: Set[Key], name:String ="") extends Music {
   def play: Unit = Context.midiPlayer.play(set)
   override def toString = if (name =="" ) "[" + set.foreach(_.toString) + "]" else name
