@@ -1,10 +1,11 @@
 package de.htwg.scalala.music
 
-import de.htwg.scalala.midi.Player
-import javax.sound.midi.{ MidiSystem, Receiver }
+import de.htwg.scalala.midi.MidiPlayer
 
 object Context {
-  val player = new Player
+
+  val midiPlayer = new MidiPlayer
+  val instrument = Piano
   var timeSignature = TimeSignature(4, 4)
   var octave = 4
   var bpm = 80
@@ -14,6 +15,7 @@ object Context {
   var softDecrease = 25
   require(volume + hardIncrease <= 100)
   require(0 < volume - softDecrease)
-  val midi_lowestkey =0
-  val midi_highestkey =127
+  val midi_lowestkey = 0
+  val midi_highestkey = 127
+
 }

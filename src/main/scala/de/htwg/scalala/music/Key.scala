@@ -17,7 +17,7 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
   require(0 <= volume && volume <= 100)
 
   def play: String = {
-    Context.player.play(key = midiNumber, duration = duration, volume)
+    Context.midiPlayer.play(key = midiNumber, duration = duration, volume)
     toString
   }
 
