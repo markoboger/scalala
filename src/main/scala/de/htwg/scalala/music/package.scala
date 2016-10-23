@@ -8,14 +8,21 @@ package object music {
   def play(chord: Chord): Unit = chord.play
   def play(chords: List[Chord]): Unit = chords.map(chord => chord.play)
 
-  val Piano = Instrument(name = "Piano", bank = 0, program = 0, channel = 0)
-  val Marimba = Instrument(name = "Marimba", bank = 0, program = 13, channel = 1)
-  val Xylophone = Instrument(name = "Xylophone", bank = 0, program = 14, channel = 2)
-  val Organ = Instrument(name = "Organ", bank = 0, program = 20, channel = 3)
-  val Guitar = Instrument(name = "Guitar", bank = 0, program = 25, channel = 4)
-  val Bass = Instrument(name = "Piano", bank = 0, program = 33, channel = 5)
-  val Violin = Instrument(name = "Piano", bank = 0, program = 41, channel = 6)
-  val Cello = Instrument(name = "Piano", bank = 0, program = 43, channel = 7)
+  val Piano = Instrument(name = "Piano", program = 0)
+  val Marimba = Instrument(name = "Marimba", program = 13)
+  val Xylophone = Instrument(name = "Xylophone", program = 14)
+  val Organ = Instrument(name = "Organ", program = 20)
+  val Guitar = Instrument(name = "Guitar", program = 25)
+  val Bass = Instrument(name = "Bass", program = 33)
+  val Violin = Instrument(name = "Violin", program = 41)
+  val Cello = Instrument(name = "Cello", program = 43)
+  val Trumpet = Instrument(name = "Trumpet", program = 57)
+  val Tuba = Instrument(name = "Tuba", program = 59)
+  val Horn = Instrument(name = "Horn", program = 61)
+  val Sax = Instrument(name = "Sax", program = 68)
+  val Oboe = Instrument(name = "Oboe", program = 69)
+  val Clarinet = Instrument(name = "Clarinet", program = 72)
+  val Flute = Instrument(name = "Flute", program = 74)
 
   def c = Key(keynumber = 0)
   def d = Key(keynumber = 2)
@@ -148,9 +155,12 @@ package object music {
   def b16 = b.speed(0.0625)
 
   implicit class KeyList(keys: List[Key]) {
-    
-def play: Seq[String] = music.play(keys)
-def play(instrument:Instrument): Seq[String] = instrument.play(keys)
+    def play: Seq[String] = music.play(keys)
+    def play(instrument: Instrument): Seq[String] = instrument.play(keys)
+  }
+  implicit class ChordList(chords: List[Chord]) {
+    def play: Unit = music.play(chords)
+    def play(instrument: Instrument): Unit = instrument.play(chords)
   }
 }
 

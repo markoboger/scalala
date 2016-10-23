@@ -1,6 +1,6 @@
 package de.htwg.scalala.music
 
-case class Instrument(name: String, bank: Int = 0, program: Int = 0, channel: Int = 0) {
+case class Instrument(name: String,  program: Int) {
 
   def play(key: Key) = {
     Context.midiPlayer.changeToInstrument(program)
