@@ -1,24 +1,21 @@
 package de.htwg.scalala.music
 
-import player._
-import notes._
-import chords._
-import javax.sound.midi.{ MidiSystem, Receiver }
-import de.htwg.scalala.midi.events.{ NoteOn, NoteOff , ProgramChange}
-
 import scala.language.postfixOps
-import de.htwg.scalala.midi.events.ProgramChange
 
 object MusicWorksheet {
- 
-play(c.mol)                                       //> res0: <error> = ()
 
-Context.player.changeToInstrument(14)
+  val melody = List(d, d, d, c1)                  //> melody  : List[de.htwg.scalala.music.Key] = List(d, d, d, cᴕD)
 
-play(f.dur)                                       //> res1: <error> = ()
-     
+  play(melody)                                    //> res0: List[String] = List(d, d, d, cᴕD)
+  play( g, b, a)                                  //> res1: Seq[String] = ArrayBuffer(g, b, a)
+  play((c, e, f))
 
-     
+  Context.midiPlayer.changeToInstrument(40, 0)
+  play(melody)                                    //> res2: List[String] = List(d, d, d, cᴕD)
 
- 
+  Guitar.play(Chord(c, e, f))
+  Guitar.play(d, f, b)                            //> res3: Seq[String] = ArrayBuffer(d, f, b)
+  
+  Thread.sleep(800)
+
 }
