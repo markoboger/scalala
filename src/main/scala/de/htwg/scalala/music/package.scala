@@ -1,21 +1,21 @@
 package de.htwg.scalala
 
 package object music {
-  def play(key: Key): String = key.play 
+  def play(key: Key): String = key.play
   def play(keys: Key*): Seq[String] = keys.map(key => play(key))
   def play(keys: List[Key]): List[String] = keys.map(key => play(key))
   def play(tuple: Product): Unit = Chord(tuple.productIterator.toSet.map { key: Any => key.asInstanceOf[Key] }).play
   def play(chord: Chord): Unit = chord.play
   def play(chords: List[Chord]): Unit = chords.map(chord => chord.play)
 
-  val Piano = Instrument(name="Piano",bank=0, program=0, channel=0)
-  val Marimba = Instrument(name="Marimba",bank=0, program=13, channel=1)
-  val Xylophone = Instrument(name="Xylophone",bank=0, program=14, channel=2)
-  val Organ = Instrument(name="Organ",bank=0, program=20, channel=3)
-  val Guitar = Instrument(name="Guitar",bank=0, program=25, channel=4)
-  val Bass = Instrument(name="Piano",bank=0, program=33, channel=5)
-  val Violin = Instrument(name="Piano",bank=0, program=41, channel=6)
-  val Cello = Instrument(name="Piano",bank=0, program=43, channel=7) 
+  val Piano = Instrument(name = "Piano", bank = 0, program = 0, channel = 0)
+  val Marimba = Instrument(name = "Marimba", bank = 0, program = 13, channel = 1)
+  val Xylophone = Instrument(name = "Xylophone", bank = 0, program = 14, channel = 2)
+  val Organ = Instrument(name = "Organ", bank = 0, program = 20, channel = 3)
+  val Guitar = Instrument(name = "Guitar", bank = 0, program = 25, channel = 4)
+  val Bass = Instrument(name = "Piano", bank = 0, program = 33, channel = 5)
+  val Violin = Instrument(name = "Piano", bank = 0, program = 41, channel = 6)
+  val Cello = Instrument(name = "Piano", bank = 0, program = 43, channel = 7)
 
   def c = Key(keynumber = 0)
   def d = Key(keynumber = 2)
@@ -32,14 +32,12 @@ package object music {
   def gis = g.sharp
   def ais = a.sharp
 
-
   def ces = c.flat
   def des = d.flat
   def es = e.flat
   def fes = f.flat
   def ges = g.flat
   def as = a.flat
-
 
   def c1 = c.speed(1.0)
   def c2 = c.speed(0.5)
@@ -149,4 +147,10 @@ package object music {
   def b8 = b.speed(0.125)
   def b16 = b.speed(0.0625)
 
+  implicit class KeyList(keys: List[Key]) {
+    
+def play: Seq[String] = music.play(keys)
+def play(instrument:Instrument): Seq[String] = instrument.play(keys)
+  }
 }
+

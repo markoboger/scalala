@@ -1,14 +1,7 @@
 package de.htwg.scalala.music
 
 case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Double = Context.fraction, volume: Int = Context.volume) extends Music {
-  if (keynumber >= 12) {
-    keynumber = keynumber % 12
-    octave = octave + keynumber / 12
-  }
-  if (keynumber < 0) {
-    keynumber = (12 + keynumber) % 12
-    octave = octave - 1
-  }
+  normalizeKeyNumber
   require(0 <= keynumber && keynumber < 12)
   require(-1 <= octave && octave <= 9)
   require(time == 1 || time == 0.5 || time == 0.25 || time == 0.125 || time == 0.0625)
@@ -16,6 +9,10 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
 
   def play: String = {
     Context.midiPlayer.play(key = midiNumber, duration = duration, volume)
+    toString
+  }
+  def play(instrument: Instrument): String = {
+    instrument.play(this)
     toString
   }
 
@@ -71,6 +68,16 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
   def maj7 = findChord(ChordQuality.MajorSeventh)
   def min7 = findChord(ChordQuality.MinorSeventh)
 
+  def normalizeKeyNumber = {
+    if (keynumber >= 12) {
+      octave =  keynumber / 12 -1
+      keynumber = keynumber % 12
+    }
+    if (keynumber < 0) {
+      octave = octave - 1
+      keynumber = (12 + keynumber) % 12
+    }
+  }
   val keynumberToString = Map(
     0 -> "c",
     1 -> "c\u266F",
@@ -104,6 +111,13 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
     0.0625 -> "1/16")
 
   override def toString = keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)
-  def asLy = toString
-  def asDSL = toString
+  override def equals(that: Any): Boolean =
+    that match {
+      case that: Key => (this.midiNumber == that.midiNumber) && (this.time == that.time)
+      case _ => false
+   }  
+}
+
+object Key {
+
 }

@@ -1,10 +1,15 @@
 package de.htwg.scalala.music
 
-case class Chord(set: Set[Key], name:String ="") extends Music {
+case class Chord(set: Set[Key], name: String = "") extends Music {
   def play: Unit = Context.midiPlayer.play(set)
-  override def toString = if (name =="" ) "[" + set.foreach(_.toString) + "]" else name
+  override def toString = if (name == "") "[" + set.foreach(_.toString) + "]" else name
   def asLy = toString
   def asDSL = toString
+  override def equals(that: Any): Boolean =
+    that match {
+      case that: Chord => (this.set == that.set)
+      case _           => false
+    }
 }
 
 object Chord {
@@ -16,10 +21,6 @@ object Chord {
   def apply(rootkey: Key, chordQuality: ChordQuality.Value): Chord = {
     rootkey.findChord(chordQuality)
   }
-  private val root = """([a-g,A-G])([n|#|x|X|\-|_]?)([,|']*)"""
-  private val qual = """(M|m|maj|min|mol|dur)"""
-  private val r = s"""$root:$qual""".r
-
 }
 
 object ChordQuality extends Enumeration {

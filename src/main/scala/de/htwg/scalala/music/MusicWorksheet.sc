@@ -4,18 +4,10 @@ import scala.language.postfixOps
 
 object MusicWorksheet {
 
-  val melody = List(d, d, d, c1)                  //> melody  : List[de.htwg.scalala.music.Key] = List(d, d, d, cᴕD)
+  val melody = List(d, d, d, c1)                  //> melody  : List#8647[de#29.htwg#17821.scalala#17823.music#17829.Key#17872] = 
+                                                  //| List(d, d, d, cᴕD)
 
-  play(melody)                                    //> res0: List[String] = List(d, d, d, cᴕD)
-  play( g, b, a)                                  //> res1: Seq[String] = ArrayBuffer(g, b, a)
-  play((c, e, f))
-
-  Context.midiPlayer.changeToInstrument(40, 0)
-  play(melody)                                    //> res2: List[String] = List(d, d, d, cᴕD)
-
-  Guitar.play(Chord(c, e, f))
-  Guitar.play(d, f, b)                            //> res3: Seq[String] = ArrayBuffer(d, f, b)
-  
+ melody.play(Guitar)                              //> res0: Seq#3045[String#3909288] = List(d, d, d, cᴕD)
   Thread.sleep(800)
 
 }
