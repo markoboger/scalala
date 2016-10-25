@@ -90,7 +90,7 @@ case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int
     0.0625 -> "1/16",
     0.0 -> "|")
 
-  override def toString = if (midiNumber==128) "| " else if (volume == 0) "-" else keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)+" "
+  override def toString = if (midiNumber==128) "|" else if (volume == 0) "-" else keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)
   override def equals(that: Any): Boolean =
     that match {
       case that: Key => (this.midiNumber == that.midiNumber) && (this.time == that.time)

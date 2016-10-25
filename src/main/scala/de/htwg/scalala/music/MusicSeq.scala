@@ -7,12 +7,12 @@ trait MusicSeq extends Music with Traversable[Music]  {
 }
 
 case class Tune(override val seq: Music*) extends MusicSeq {
-  override def toString: String = "(" + seq.foreach(_.toString) + ")"
+  override def toString: String = seq.toString.replace("WrappedArray(", "(").replace(")", ")")
 }
 case class Line(override val seq: Music*) extends MusicSeq {
-  override def toString: String = "[" + seq.foreach(_.toString) + "]"
+  override def toString: String = seq.toString.replace("WrappedArray(", "[").replace(")", "]")
 }
 case class Track(override val seq: Music*) extends MusicSeq {
-  override def toString: String = "{" + seq.foreach(_.toString) + "}"
+  override def toString: String = seq.toString.replace("WrappedArray(", "{").replace(")", "}")
 }
 
