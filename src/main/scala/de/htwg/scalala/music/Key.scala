@@ -1,10 +1,7 @@
 package de.htwg.scalala.music
 
-case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Double = Context.fraction, volume: Int = Context.volume) extends Music {
-  normalizeKeyNumber
-  require(0 <= keynumber && keynumber < 12)
-  require(-1 <= octave && octave <= 9)
-  require(time == 1 || time == 0.5 || time == 0.25 || time == 0.125 || time == 0.0625)
+case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int = Context.volume) extends Music {
+  require(0 <= midiNumber && midiNumber <= 128)
   require(0 <= volume && volume <= 100)
 
   def play: String = {
@@ -16,8 +13,8 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
     toString
   }
 
-  def midiNumber = keynumber + octave * 12 + 12
-  require(Context.midi_lowestkey < midiNumber && midiNumber <= Context.midi_highestkey)
+  val keynumber = midiNumber%12
+  val octave = midiNumber/12 -1
 
   def duration = {
     val beatsPerMinute = Context.bpm
@@ -26,15 +23,16 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
     (time * measureDuration).toInt
   }
 
-  def sharp = Key(keynumber + 1)
-  def flat = Key(keynumber - 1)
+  def sharp = Key(midiNumber + 1)
+  def flat = Key(midiNumber - 1)
+  def dot = copy(time=time*1.5)
 
   def speed(t: Double) = { copy(time = t) }
 
-  def + = copy(octave = octave + 1)
-  def ++ = copy(octave = octave + 2)
-  def - = copy(octave = octave - 1)
-  def -- = copy(octave = octave - 2)
+  def + = copy(midiNumber = midiNumber + 12)
+  def ++ = copy(midiNumber = midiNumber + 24)
+  def - = copy(midiNumber = midiNumber - 12)
+  def -- = copy(midiNumber = midiNumber - 24)
 
   def soft = copy(volume = volume - Context.softDecrease)
   def ? = soft
@@ -52,13 +50,13 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
       case ChordQuality.MinorSeventh => Chord(Set(this, minorTerz, majorQuint, minorSetp), name = toString.toUpperCase() + "min7")
     }
   }
-  def minorTerz = copy(keynumber = this.keynumber + 3)
-  def majorTerz = copy(keynumber = this.keynumber + 4)
-  def minorQuint = copy(keynumber = this.keynumber + 6)
-  def majorQuint = copy(keynumber = this.keynumber + 7)
-  def augmentedQuint = copy(keynumber = this.keynumber + 8)
-  def minorSetp = copy(keynumber = this.keynumber + 10)
-  def majorSetp = copy(keynumber = this.keynumber + 11)
+  def minorTerz = copy(midiNumber = this.midiNumber + 3)
+  def majorTerz = copy(midiNumber = this.midiNumber + 4)
+  def minorQuint = copy(midiNumber = this.midiNumber + 6)
+  def majorQuint = copy(midiNumber = this.midiNumber + 7)
+  def augmentedQuint = copy(midiNumber = this.midiNumber + 8)
+  def minorSetp = copy(midiNumber = this.midiNumber + 10)
+  def majorSetp = copy(midiNumber = this.midiNumber + 11)
   def maj: Chord = findChord(ChordQuality.Major)
   def dur: Chord = maj
   def min: Chord = findChord(ChordQuality.Minor)
@@ -67,17 +65,7 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
   def aug: Chord = findChord(ChordQuality.Augmented)
   def maj7 = findChord(ChordQuality.MajorSeventh)
   def min7 = findChord(ChordQuality.MinorSeventh)
-
-  def normalizeKeyNumber = {
-    if (keynumber >= 12) {
-      octave =  keynumber / 12 -1
-      keynumber = keynumber % 12
-    }
-    if (keynumber < 0) {
-      octave = octave - 1
-      keynumber = (12 + keynumber) % 12
-    }
-  }
+  
   val keynumberToString = Map(
     0 -> "c",
     1 -> "c\u266F",
@@ -105,12 +93,17 @@ case class Key(var keynumber: Int, var octave: Int = Context.octave, time: Doubl
     9 -> "\"\"'")
   val timeToString = Map(
     1.0 -> "\u1D15D",
+    0.75 -> "\u00BD\u00B7",
     0.5 -> "\u00BD",
+    0.375 -> "\u00B7",
     0.25 -> "",
+    0.875 -> "1/8\u00B7",
     0.125 -> "1/8",
-    0.0625 -> "1/16")
+    0.09375 -> "1/16\u00B7",
+    0.0625 -> "1/16",
+    0.0 -> "|")
 
-  override def toString = keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)
+  override def toString = if (midiNumber==128) "| " else if (volume == 0) "-" else keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)+" "
   override def equals(that: Any): Boolean =
     that match {
       case that: Key => (this.midiNumber == that.midiNumber) && (this.time == that.time)

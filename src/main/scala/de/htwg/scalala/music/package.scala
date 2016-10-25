@@ -24,13 +24,16 @@ package object music {
   val Clarinet = Instrument(name = "Clarinet", program = 72)
   val Flute = Instrument(name = "Flute", program = 74)
 
-  def c = Key(keynumber = 0)
-  def d = Key(keynumber = 2)
-  def e = Key(keynumber = 4)
-  def f = Key(keynumber = 5)
-  def g = Key(keynumber = 7)
-  def a = Key(keynumber = 9)
-  def b = Key(keynumber = 11)
+  def c = Key(midiNumber = 60)
+  def d = Key(midiNumber = 62)
+  def e = Key(midiNumber = 64)
+  def f = Key(midiNumber = 65)
+  def g = Key(midiNumber = 67)
+  def a = Key(midiNumber = 69)
+  def b = Key(midiNumber = 71)
+  
+  def p = Key(0,volume=0)
+  val | = Key(midiNumber=128, time=0.0) 
 
   def cis = c.sharp
   def dis = d.sharp
@@ -45,6 +48,13 @@ package object music {
   def fes = f.flat
   def ges = g.flat
   def as = a.flat
+  def bes = b.flat
+  
+  def p1 = p.speed(1.0)
+  def p2 = p.speed(0.5)
+  def p4 = p.speed(0.25)
+  def p8 = p.speed(0.125)
+  def p16 = p.speed(0.0625)
 
   def c1 = c.speed(1.0)
   def c2 = c.speed(0.5)
@@ -148,15 +158,24 @@ package object music {
   def ais8 = ais.speed(0.125)
   def ais16 = ais.speed(0.0625)
 
+  def bes1 = bes.speed(1.0)
+  def bes2 = bes.speed(0.5)
+  def bes4 = bes.speed(0.25)
+  def bes8 = bes.speed(0.125)
+  def bes16 = bes.speed(0.0625)
+  
   def b1 = b.speed(1.0)
   def b2 = b.speed(0.5)
   def b4 = b.speed(0.25)
   def b8 = b.speed(0.125)
   def b16 = b.speed(0.0625)
-
-  implicit class KeyList(keys: List[Key]) {
+  
+  val newline = System.lineSeparator
+  
+ implicit class KeyList(keys: List[Key]) {
     def play: Seq[String] = music.play(keys)
     def play(instrument: Instrument): Seq[String] = instrument.play(keys)
+    def mkString:String = "{"+ keys.map(_.toString)+"}".replaceAll("| |", "|"+newline+"|")
   }
   implicit class ChordList(chords: List[Chord]) {
     def play: Unit = music.play(chords)
