@@ -1,27 +1,14 @@
 package de.htwg.scalala.music
 
-case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int = Context.volume) extends Music {
+case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int = Context.volume) extends MusicElem {
   require(0 <= midiNumber && midiNumber <= 128)
   require(0 <= volume && volume <= 100)
 
-  def play: String = {
-    Context.midiPlayer.play(key = midiNumber, duration = duration, volume)
-    toString
-  }
-  def play(instrument: Instrument): String = {
-    instrument.play(this)
-    toString
-  }
+  def play = Context.midiPlayer.play(key = midiNumber, duration = duration, volume)
+  def play(instrument: Instrument):Unit = instrument.play(this)
 
   val keynumber = midiNumber%12
   val octave = midiNumber/12 -1
-
-  def duration = {
-    val beatsPerMinute = Context.bpm
-    val millisecondsInMinute = 1000 * 60
-    val measureDuration = (millisecondsInMinute / beatsPerMinute) * 4
-    (time * measureDuration).toInt
-  }
 
   def sharp = Key(midiNumber + 1)
   def flat = Key(midiNumber - 1)
@@ -39,7 +26,7 @@ case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int
   def hard = copy(volume = volume + Context.hardIncrease)
   def ! = hard
 
-  def findChord(chordQuality: ChordQuality.Value): Chord = {
+  def chord(chordQuality: ChordQuality.Value): Chord = {
     chordQuality match {
       case ChordQuality.Major        => Chord(Set(this, majorTerz, majorQuint), name = toString.toUpperCase() + "maj")
       case ChordQuality.Minor        => Chord(Set(this, minorTerz, majorQuint), name = toString.toUpperCase() + "min")
@@ -57,14 +44,14 @@ case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int
   def augmentedQuint = copy(midiNumber = this.midiNumber + 8)
   def minorSetp = copy(midiNumber = this.midiNumber + 10)
   def majorSetp = copy(midiNumber = this.midiNumber + 11)
-  def maj: Chord = findChord(ChordQuality.Major)
+  def maj: Chord = chord(ChordQuality.Major)
   def dur: Chord = maj
-  def min: Chord = findChord(ChordQuality.Minor)
+  def min: Chord = chord(ChordQuality.Minor)
   def mol: Chord = min
-  def dim: Chord = findChord(ChordQuality.Diminshed)
-  def aug: Chord = findChord(ChordQuality.Augmented)
-  def maj7 = findChord(ChordQuality.MajorSeventh)
-  def min7 = findChord(ChordQuality.MinorSeventh)
+  def dim: Chord = chord(ChordQuality.Diminshed)
+  def aug: Chord = chord(ChordQuality.Augmented)
+  def maj7 = chord(ChordQuality.MajorSeventh)
+  def min7 = chord(ChordQuality.MinorSeventh)
   
   val keynumberToString = Map(
     0 -> "c",

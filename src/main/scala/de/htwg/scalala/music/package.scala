@@ -1,12 +1,17 @@
 package de.htwg.scalala
 
 package object music {
-  def play(key: Key): String = key.play
-  def play(keys: Key*): Seq[String] = keys.map(key => play(key))
-  def play(keys: List[Key]): List[String] = keys.map(key => play(key))
-  def play(tuple: Product): Unit = Chord(tuple.productIterator.toSet.map { key: Any => key.asInstanceOf[Key] }).play
-  def play(chord: Chord): Unit = chord.play
-  def play(chords: List[Chord]): Unit = chords.map(chord => chord.play)
+  def play(elem: MusicElem): Unit = elem.play
+  def play(elems: MusicElem*): Unit = elems.map(elem => elem.play)
+//  def play(seq: MusicSeq):Unit = seq.map { elem => elem.play}
+//  def play(key: Key):Unit = key.play
+//v def play(keys: Key*): Unit = keys.map(key => play(key))
+//  def play(elems: List[MusicElem]): Unit = elems.map(elem => elem.play)
+//    def play(keys: List[MusicElem]): Unit = keys.map(key => key.play)
+//  def play(tuple: Product): Unit = Chord(tuple.productIterator.toSet.map { key: Any => key.asInstanceOf[Key] }).play
+//  def play(chord: Chord): Unit = chord.play
+//  def play(tune:Tune):Unit = tune.play
+//  def play(chords: List[Chord]): Unit = chords.map(chord => chord.play)
 
   val Piano = Instrument(name = "Piano", program = 0)
   val Marimba = Instrument(name = "Marimba", program = 13)
@@ -24,161 +29,161 @@ package object music {
   val Clarinet = Instrument(name = "Clarinet", program = 72)
   val Flute = Instrument(name = "Flute", program = 74)
 
-  def c = Key(midiNumber = 60)
-  def d = Key(midiNumber = 62)
-  def e = Key(midiNumber = 64)
-  def f = Key(midiNumber = 65)
-  def g = Key(midiNumber = 67)
-  def a = Key(midiNumber = 69)
-  def b = Key(midiNumber = 71)
+  val c = Key(midiNumber = 60)
+  val d = Key(midiNumber = 62)
+  val e = Key(midiNumber = 64)
+  val f = Key(midiNumber = 65)
+  val g = Key(midiNumber = 67)
+  val a = Key(midiNumber = 69)
+  val b = Key(midiNumber = 71)
   
-  def p = Key(0,volume=0)
-  val | = Key(midiNumber=128, time=0.0) 
+  val p = Pause
+  val | = Bar
 
-  def cis = c.sharp
-  def dis = d.sharp
-  def eis = e.sharp
-  def fis = f.sharp
-  def gis = g.sharp
-  def ais = a.sharp
+  val cis = c.sharp
+  val dis = d.sharp
+  val eis = e.sharp
+  val fis = f.sharp
+  val gis = g.sharp
+  val ais = a.sharp
 
-  def ces = c.flat
-  def des = d.flat
-  def es = e.flat
-  def fes = f.flat
-  def ges = g.flat
-  def as = a.flat
-  def bes = b.flat
+  val ces = c.flat
+  val des = d.flat
+  val es = e.flat
+  val fes = f.flat
+  val ges = g.flat
+  val as = a.flat
+  val bes = b.flat
   
-  def p1 = p.speed(1.0)
-  def p2 = p.speed(0.5)
-  def p4 = p.speed(0.25)
-  def p8 = p.speed(0.125)
-  def p16 = p.speed(0.0625)
+  val p1 = Pause(1.0)
+  val p2 = Pause(0.5)
+  val p4 = Pause(0.25)
+  val p8 = Pause(0.125)
+  val p16 = Pause(0.0625)
 
-  def c1 = c.speed(1.0)
-  def c2 = c.speed(0.5)
-  def c4 = c.speed(0.25)
-  def c8 = c.speed(0.125)
-  def c16 = c.speed(0.0625)
+  val c1 = c.speed(1.0)
+  val c2 = c.speed(0.5)
+  val c4 = c.speed(0.25)
+  val c8 = c.speed(0.125)
+  val c16 = c.speed(0.0625)
 
-  def cis1 = cis.speed(1.0)
-  def cis2 = cis.speed(0.5)
-  def cis4 = cis.speed(0.25)
-  def cis8 = cis.speed(0.125)
-  def cis16 = cis.speed(0.0625)
+  val cis1 = cis.speed(1.0)
+  val cis2 = cis.speed(0.5)
+  val cis4 = cis.speed(0.25)
+  val cis8 = cis.speed(0.125)
+  val cis16 = cis.speed(0.0625)
 
-  def des1 = des.speed(1.0)
-  def des2 = des.speed(0.5)
-  def des4 = des.speed(0.25)
-  def des8 = des.speed(0.125)
-  def des16 = des.speed(0.0625)
+  val des1 = des.speed(1.0)
+  val des2 = des.speed(0.5)
+  val des4 = des.speed(0.25)
+  val des8 = des.speed(0.125)
+  val des16 = des.speed(0.0625)
 
-  def d1 = d.speed(1.0)
-  def d2 = d.speed(0.5)
-  def d4 = d.speed(0.25)
-  def d8 = d.speed(0.125)
-  def d16 = d.speed(0.0625)
+  val d1 = d.speed(1.0)
+  val d2 = d.speed(0.5)
+  val d4 = d.speed(0.25)
+  val d8 = d.speed(0.125)
+  val d16 = d.speed(0.0625)
 
-  def dis1 = dis.speed(1.0)
-  def dis2 = dis.speed(0.5)
-  def dis4 = dis.speed(0.25)
-  def dis8 = dis.speed(0.125)
-  def dis16 = dis.speed(0.0625)
+  val dis1 = dis.speed(1.0)
+  val dis2 = dis.speed(0.5)
+  val dis4 = dis.speed(0.25)
+  val dis8 = dis.speed(0.125)
+  val dis16 = dis.speed(0.0625)
 
-  def es1 = es.speed(1.0)
-  def es2 = es.speed(0.5)
-  def es4 = es.speed(0.25)
-  def es8 = es.speed(0.125)
-  def es16 = es.speed(0.0625)
+  val es1 = es.speed(1.0)
+  val es2 = es.speed(0.5)
+  val es4 = es.speed(0.25)
+  val es8 = es.speed(0.125)
+  val es16 = es.speed(0.0625)
 
-  def e1 = e.speed(1.0)
-  def e2 = e.speed(0.5)
-  def e4 = e.speed(0.25)
-  def e8 = e.speed(0.125)
-  def e16 = e.speed(0.0625)
+  val e1 = e.speed(1.0)
+  val e2 = e.speed(0.5)
+  val e4 = e.speed(0.25)
+  val e8 = e.speed(0.125)
+  val e16 = e.speed(0.0625)
 
-  def eis1 = eis.speed(1.0)
-  def eis2 = eis.speed(0.5)
-  def eis4 = eis.speed(0.25)
-  def eis8 = eis.speed(0.125)
-  def eis16 = eis.speed(0.0625)
+  val eis1 = eis.speed(1.0)
+  val eis2 = eis.speed(0.5)
+  val eis4 = eis.speed(0.25)
+  val eis8 = eis.speed(0.125)
+  val eis16 = eis.speed(0.0625)
 
-  def fes1 = fes.speed(1.0)
-  def fes2 = fes.speed(0.5)
-  def fes4 = fes.speed(0.25)
-  def fes8 = fes.speed(0.125)
-  def fes16 = fes.speed(0.0625)
+  val fes1 = fes.speed(1.0)
+  val fes2 = fes.speed(0.5)
+  val fes4 = fes.speed(0.25)
+  val fes8 = fes.speed(0.125)
+  val fes16 = fes.speed(0.0625)
 
-  def f1 = f.speed(1.0)
-  def f2 = f.speed(0.5)
-  def f4 = f.speed(0.25)
-  def f8 = f.speed(0.125)
-  def f16 = f.speed(0.0625)
+  val f1 = f.speed(1.0)
+  val f2 = f.speed(0.5)
+  val f4 = f.speed(0.25)
+  val f8 = f.speed(0.125)
+  val f16 = f.speed(0.0625)
 
-  def fis1 = fis.speed(1.0)
-  def fis2 = fis.speed(0.5)
-  def fis4 = fis.speed(0.25)
-  def fis8 = fis.speed(0.125)
-  def fis16 = fis.speed(0.0625)
+  val fis1 = fis.speed(1.0)
+  val fis2 = fis.speed(0.5)
+  val fis4 = fis.speed(0.25)
+  val fis8 = fis.speed(0.125)
+  val fis16 = fis.speed(0.0625)
 
-  def ges1 = ges.speed(1.0)
-  def ges2 = ges.speed(0.5)
-  def ges4 = ges.speed(0.25)
-  def ges8 = ges.speed(0.125)
-  def ges16 = ges.speed(0.0625)
+  val ges1 = ges.speed(1.0)
+  val ges2 = ges.speed(0.5)
+  val ges4 = ges.speed(0.25)
+  val ges8 = ges.speed(0.125)
+  val ges16 = ges.speed(0.0625)
 
-  def g1 = g.speed(1.0)
-  def g2 = g.speed(0.5)
-  def g4 = g.speed(0.25)
-  def g8 = g.speed(0.125)
-  def g16 = g.speed(0.0625)
+  val g1 = g.speed(1.0)
+  val g2 = g.speed(0.5)
+  val g4 = g.speed(0.25)
+  val g8 = g.speed(0.125)
+  val g16 = g.speed(0.0625)
 
-  def gis1 = gis.speed(1.0)
-  def gis2 = gis.speed(0.5)
-  def gis4 = gis.speed(0.25)
-  def gis8 = gis.speed(0.125)
-  def gis16 = gis.speed(0.0625)
+  val gis1 = gis.speed(1.0)
+  val gis2 = gis.speed(0.5)
+  val gis4 = gis.speed(0.25)
+  val gis8 = gis.speed(0.125)
+  val gis16 = gis.speed(0.0625)
 
-  def as1 = as.speed(1.0)
-  def as2 = as.speed(0.5)
-  def as4 = as.speed(0.25)
-  def as8 = as.speed(0.125)
-  def as16 = as.speed(0.0625)
+  val as1 = as.speed(1.0)
+  val as2 = as.speed(0.5)
+  val as4 = as.speed(0.25)
+  val as8 = as.speed(0.125)
+  val as16 = as.speed(0.0625)
 
-  def a1 = a.speed(1.0)
-  def a2 = a.speed(0.5)
-  def a4 = a.speed(0.25)
-  def a8 = a.speed(0.125)
-  def a16 = a.speed(0.0625)
+  val a1 = a.speed(1.0)
+  val a2 = a.speed(0.5)
+  val a4 = a.speed(0.25)
+  val a8 = a.speed(0.125)
+  val a16 = a.speed(0.0625)
 
-  def ais1 = ais.speed(1.0)
-  def ais2 = ais.speed(0.5)
-  def ais4 = ais.speed(0.25)
-  def ais8 = ais.speed(0.125)
-  def ais16 = ais.speed(0.0625)
+  val ais1 = ais.speed(1.0)
+  val ais2 = ais.speed(0.5)
+  val ais4 = ais.speed(0.25)
+  val ais8 = ais.speed(0.125)
+  val ais16 = ais.speed(0.0625)
 
-  def bes1 = bes.speed(1.0)
-  def bes2 = bes.speed(0.5)
-  def bes4 = bes.speed(0.25)
-  def bes8 = bes.speed(0.125)
-  def bes16 = bes.speed(0.0625)
+  val bes1 = bes.speed(1.0)
+  val bes2 = bes.speed(0.5)
+  val bes4 = bes.speed(0.25)
+  val bes8 = bes.speed(0.125)
+  val bes16 = bes.speed(0.0625)
   
-  def b1 = b.speed(1.0)
-  def b2 = b.speed(0.5)
-  def b4 = b.speed(0.25)
-  def b8 = b.speed(0.125)
-  def b16 = b.speed(0.0625)
+  val b1 = b.speed(1.0)
+  val b2 = b.speed(0.5)
+  val b4 = b.speed(0.25)
+  val b8 = b.speed(0.125)
+  val b16 = b.speed(0.0625)
   
   val newline = System.lineSeparator
   
  implicit class KeyList(keys: List[Key]) {
-    def play: Seq[String] = music.play(keys)
-    def play(instrument: Instrument): Seq[String] = instrument.play(keys)
+    def play: Unit = keys.foreach { key => key.play }
+    def play(instrument: Instrument): Unit = instrument.play(keys)
     def mkString:String = "{"+ keys.map(_.toString)+"}".replaceAll("| |", "|"+newline+"|")
   }
   implicit class ChordList(chords: List[Chord]) {
-    def play: Unit = music.play(chords)
+//    def play: Unit = music.play(chords)
     def play(instrument: Instrument): Unit = instrument.play(chords)
   }
 }

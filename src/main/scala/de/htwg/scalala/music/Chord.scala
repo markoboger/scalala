@@ -1,6 +1,6 @@
 package de.htwg.scalala.music
 
-case class Chord(set: Set[Key], name: String = "") extends Music {
+case class Chord(set: Set[Key], time:Double = 0.25, name: String = "") extends MusicElem {
   def play: Unit = Context.midiPlayer.play(set)
   def play(instrument:Instrument): Unit = instrument.play(this) 
   override def toString = if (name == "") "[" + set.foreach(_.toString) + "]" else name
@@ -18,7 +18,7 @@ object Chord {
   }
 
   def apply(rootkey: Key, chordQuality: ChordQuality.Value): Chord = {
-    rootkey.findChord(chordQuality)
+    rootkey.chord(chordQuality)
   }
 }
 
