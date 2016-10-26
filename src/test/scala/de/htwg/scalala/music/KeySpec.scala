@@ -42,8 +42,8 @@ class KeySpec extends WordSpec with Matchers {
       (c--).midiNumber should be(Key(36).midiNumber)
     }
     "should have a concise and clear text representation" in {
-      c.toString should be("c ")
-      cis.toString should be("c\u266F " )
+      c.toString should be("c")
+      cis.toString should be("c\u266F" )
       c2.toString should be("c\u00BD")
       Key(60 + 12 * 5).toString should be("c\"\"'")
       (c++).toString should be("c\"")
