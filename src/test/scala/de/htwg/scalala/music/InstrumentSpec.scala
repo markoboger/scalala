@@ -16,7 +16,7 @@ class InstrumentSpec extends WordSpec {
       Violin.play(a16)
       Cello.play(b16)
     }
-    "be available on Key, Chord, Line, List[Key], List[Chord]" in {
+    "be available on Key, Chord, Line" in {
       c16.play(Piano)
       (d16.maj).play(Violin)
       Line(e16, f16, g16).play(Cello)

@@ -1,18 +1,10 @@
 package de.htwg.scalala
 
 package object music {
-  def play(elem: MusicElem): Unit = elem.play
-  def play(elems: MusicElem*): Unit = elems.map(elem => elem.play)
-//  def play(seq: MusicSeq):Unit = seq.map { elem => elem.play}
-//  def play(key: Key):Unit = key.play
-//v def play(keys: Key*): Unit = keys.map(key => play(key))
-//  def play(elems: List[MusicElem]): Unit = elems.map(elem => elem.play)
-//    def play(keys: List[MusicElem]): Unit = keys.map(key => key.play)
-//  def play(tuple: Product): Unit = Chord(tuple.productIterator.toSet.map { key: Any => key.asInstanceOf[Key] }).play
-//  def play(chord: Chord): Unit = chord.play
-//  def play(tune:Tune):Unit = tune.play
-//  def play(chords: List[Chord]): Unit = chords.map(chord => chord.play)
 
+  def play(elems: MusicElem*): Unit = elems.map(elem => elem.play)
+  def play(seq: MusicSeq): Unit = seq.map { elem => elem.play }
+ 
   val Piano = Instrument(name = "Piano", program = 0)
   val Marimba = Instrument(name = "Marimba", program = 13)
   val Xylophone = Instrument(name = "Xylophone", program = 14)
@@ -36,8 +28,14 @@ package object music {
   val g = Key(midiNumber = 67)
   val a = Key(midiNumber = 69)
   val b = Key(midiNumber = 71)
-  
+
   val p = Pause
+  val p1 = Pause(1.0)
+  val p2 = Pause(0.5)
+  val p4 = Pause(0.25)
+  val p8 = Pause(0.125)
+  val p16 = Pause(0.0625)
+
   val | = Bar
 
   val cis = c.sharp
@@ -54,12 +52,6 @@ package object music {
   val ges = g.flat
   val as = a.flat
   val bes = b.flat
-  
-  val p1 = Pause(1.0)
-  val p2 = Pause(0.5)
-  val p4 = Pause(0.25)
-  val p8 = Pause(0.125)
-  val p16 = Pause(0.0625)
 
   val c1 = c.speed(1.0)
   val c2 = c.speed(0.5)
@@ -168,23 +160,11 @@ package object music {
   val bes4 = bes.speed(0.25)
   val bes8 = bes.speed(0.125)
   val bes16 = bes.speed(0.0625)
-  
+
   val b1 = b.speed(1.0)
   val b2 = b.speed(0.5)
   val b4 = b.speed(0.25)
   val b8 = b.speed(0.125)
   val b16 = b.speed(0.0625)
-  
-  val newline = System.lineSeparator
-  
- implicit class KeyList(keys: List[Key]) {
-    def play: Unit = keys.foreach { key => key.play }
-    def play(instrument: Instrument): Unit = instrument.play(keys)
-    def mkString:String = "{"+ keys.map(_.toString)+"}".replaceAll("| |", "|"+newline+"|")
-  }
-  implicit class ChordList(chords: List[Chord]) {
-//    def play: Unit = music.play(chords)
-    def play(instrument: Instrument): Unit = instrument.play(chords)
-  }
 }
 
