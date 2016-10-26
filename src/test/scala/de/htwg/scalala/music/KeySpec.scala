@@ -42,15 +42,15 @@ class KeySpec extends WordSpec with Matchers {
       (c--).midiNumber should be(Key(36).midiNumber)
     }
     "should have a concise and clear text representation" in {
-      c.toString should be("c")
-      cis.toString should be("c\u266F")
+      c.toString should be("c ")
+      cis.toString should be("c\u266F " )
       c2.toString should be("c\u00BD")
-      Key(60+12*5).toString should be("c\"\"'")
-      (c++).toString should be("c\"")
-      (c+).toString should be("c'")
-      (c).toString should be("c")
-      (c-).toString should be("c,")
-      (c--).toString should be("c,,")
+      Key(60+12*5).toString should be("c\"\"' " )
+      (c++).toString should be("c\" " )
+      (c+).toString should be("c' " )
+      (c).toString should be("c " )
+      (c-).toString should be("c, " ) 
+      (c--).toString should be("c,, " )
     }
     "should have minor and major terz" in {
       c.majorTerz should be(e)
@@ -82,17 +82,17 @@ class KeySpec extends WordSpec with Matchers {
       c16.play
     }
     "return a String showing the key" in {
-      play(c16) should be("c1/16")
+      c16.toString should be("c1/16 ")
     }
     "should be possible on an instrument" in {
       c16.play(Guitar)
     }
   }
-  "Playing a List of Keys" should {
-    val melody = List(g16,e16, e8, f16, d16, d8) 
+  "Playing a Line of Keys" should {
+    val melody = Line(g16,e16, e8, f16, d16, d8) 
     
     "be possible from the REPL or Worksheet" in {      
-      play(melody)
+      melody.play
     }
     "should also be possible on the List" in {      
       melody.play
