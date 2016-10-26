@@ -14,17 +14,14 @@ class Composer extends Actor {
     case Start => {
       duet
     }
-    case AddMusician(musician: ActorRef, instrument: Instrument) => {
-      musician ! Play(Tune(c, e, g))
-    }
   }
 
   def duet = {
 
     val voice1 = Tune(e2, e2, |, f2, e2, |, g, g, f, e, |, f2, e2)
     val voice2 = Tune(c, g, c, g, |, a, f, c, g, |, e, e, d, c, |, d, b, c2)
-    Cellist ! Play(voice1)
-    Pianist ! Play(voice2)
+    Cellist ! play(voice1)
+    Pianist ! play(voice2)
 
   }
 

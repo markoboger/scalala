@@ -7,7 +7,7 @@ case class Musician(instrument:Instrument) extends Actor {
 
   def receive = {
 
-    case Play(m:Music) => {
+    case play(m:Music) => {
       println("starting to play")
       instrument.play(m)
     }
