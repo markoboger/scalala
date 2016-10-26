@@ -79,10 +79,10 @@ class KeySpec extends WordSpec with Matchers {
   }
   "Playing a Key" should {
     "be possible from the REPL or Worksheet" in {
-      c16.play
+      c16.play()
     }
     "should also be possible on the Key" in {
-      c16.play
+      c16.play()
     }
     "should be possible on an instrument" in {
       c16.play(Guitar)
@@ -94,7 +94,7 @@ class KeySpec extends WordSpec with Matchers {
       play(melody)
     }
     "should also be possible on the List" in {
-      melody.play
+      melody.play()
     }
     "should be possible on an instrument" in {
       melody.play(Guitar)

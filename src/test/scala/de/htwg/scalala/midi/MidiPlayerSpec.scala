@@ -5,6 +5,7 @@ import de.htwg.scalala.music.Key
 import org.scalatest.WordSpec
 import org.scalatest.Matchers
 import scala.language.postfixOps
+import de.htwg.scalala.music._
 
 class MidiPlayerSpec extends WordSpec {
 

@@ -4,7 +4,6 @@ import de.htwg.scalala.midi.MidiPlayer
 
 object Context {
 
-  val midiPlayer = new MidiPlayer
   val instrument = Piano
   var timeSignature = TimeSignature(4, 4)
   var octave = 4

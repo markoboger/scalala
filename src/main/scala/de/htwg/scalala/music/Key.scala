@@ -1,11 +1,12 @@
 package de.htwg.scalala.music
 
+import de.htwg.scalala.midi.MidiPlayer
+
 case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int = Context.volume) extends MusicElem {
   require(0 <= midiNumber && midiNumber <= 128)
   require(0 <= volume && volume <= 100)
 
-  def play = Context.midiPlayer.play(key = midiNumber, duration = duration, volume)
-  def play(instrument: Instrument):Unit = instrument.play(this)
+  def play(instrument: Instrument=Piano):Unit = instrument.midiPlayer.play(key = midiNumber, duration = duration, volume)
 
   val keynumber = midiNumber%12
   val octave = midiNumber/12 -1

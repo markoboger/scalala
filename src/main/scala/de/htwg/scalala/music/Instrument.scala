@@ -1,19 +1,14 @@
 package de.htwg.scalala.music
 
-case class Instrument(name: String,  program: Int) {
+import akka.actor._
+import de.htwg.scalala.actors._
+import de.htwg.scalala.midi.MidiPlayer
 
-  def play(key: Key) = {
-    Context.midiPlayer.changeToInstrument(program)
-    key.play
-  }
+case class Instrument(name: String, instrumentID: Int, channelID: Int = 0) {
+  val midiPlayer = MidiPlayer(instrumentID, channelID)
 
-  def play(chord: Chord) = {
-    Context.midiPlayer.changeToInstrument(program)
-    chord.play
+  def play(music: Music) = {
+    music.play(this)
   }
-  def play(keys: Key*):Unit = keys.map(key => play(key))
-  def play(keys: List[Key]): Unit = keys.map(key => play(key))
-  def play(tuple: Product): Unit = Chord(tuple.productIterator.toSet.map { key: Any => key.asInstanceOf[Key] }).play
-//  def play(chords: List[Chord]): Unit = chords.map(chord => chord.play)
 
 }

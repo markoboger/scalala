@@ -23,7 +23,7 @@ class ChordSpec extends WordSpec with Matchers {
       play(c16.maj)
     }
     "should also be possible on the Chord" in {
-      c16.maj.play
+      c16.maj.play()
     }
   }
 

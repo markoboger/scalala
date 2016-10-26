@@ -2,24 +2,24 @@ package de.htwg.scalala
 
 package object music {
 
-  def play(elems: MusicElem*): Unit = elems.map(elem => elem.play)
-  def play(seq: MusicSeq): Unit = seq.map { elem => elem.play }
+  def play(elems: MusicElem*): Unit = elems.map(elem => Piano.play(elem))
+  def play(seq: MusicSeq): Unit = seq.map { elem => Piano.play(elem) }
  
-  val Piano = Instrument(name = "Piano", program = 0)
-  val Marimba = Instrument(name = "Marimba", program = 13)
-  val Xylophone = Instrument(name = "Xylophone", program = 14)
-  val Organ = Instrument(name = "Organ", program = 20)
-  val Guitar = Instrument(name = "Guitar", program = 25)
-  val Bass = Instrument(name = "Bass", program = 33)
-  val Violin = Instrument(name = "Violin", program = 41)
-  val Cello = Instrument(name = "Cello", program = 43)
-  val Trumpet = Instrument(name = "Trumpet", program = 57)
-  val Tuba = Instrument(name = "Tuba", program = 59)
-  val Horn = Instrument(name = "Horn", program = 61)
-  val Sax = Instrument(name = "Sax", program = 68)
-  val Oboe = Instrument(name = "Oboe", program = 69)
-  val Clarinet = Instrument(name = "Clarinet", program = 72)
-  val Flute = Instrument(name = "Flute", program = 74)
+  val Piano = Instrument(name = "Piano", instrumentID = 0, channelID=0)
+  val Marimba = Instrument(name = "Marimba", instrumentID = 13, channelID=1)
+  val Xylophone = Instrument(name = "Xylophone", instrumentID = 14, channelID=2)
+  val Organ = Instrument(name = "Organ", instrumentID = 20, channelID=3)
+  val Guitar = Instrument(name = "Guitar", instrumentID = 25, channelID=4)
+  val Bass = Instrument(name = "Bass", instrumentID = 33, channelID=5)
+  val Violin = Instrument(name = "Violin", instrumentID = 41, channelID=6)
+  val Cello = Instrument(name = "Cello", instrumentID = 43,channelID=7)
+  val Trumpet = Instrument(name = "Trumpet", instrumentID = 57, channelID=8)
+  val Tuba = Instrument(name = "Tuba", instrumentID = 59, channelID=9)
+  val Horn = Instrument(name = "Horn", instrumentID = 61, channelID=11)
+  val Sax = Instrument(name = "Sax", instrumentID = 68, channelID=12)
+  val Oboe = Instrument(name = "Oboe", instrumentID = 69, channelID=13)
+  val Clarinet = Instrument(name = "Clarinet", instrumentID = 72, channelID=14)
+  val Flute = Instrument(name = "Flute", instrumentID = 74, channelID=15)
 
   val c = Key(midiNumber = 60)
   val d = Key(midiNumber = 62)
