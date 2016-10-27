@@ -5,5 +5,5 @@ import de.htwg.scalala.music._
 
 trait MusicMessage
 case object Start extends MusicMessage
-case class play(music:Music) extends MusicMessage
+case class PlayNow(music:Music) extends MusicMessage
 
