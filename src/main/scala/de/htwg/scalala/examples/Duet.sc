@@ -11,7 +11,7 @@ object Duet {
                                                   //| , |, f½, e½)
   val voice2 = Tune(c, g, c, g, |, a, f, c, g, |, e, e, d, c, |, d, b, c2)
                                                   //> voice2  : de.htwg.scalala.music.Tune = (c, g, c, g, |, a, f, c, g, |, e, e, 
-                                                  //| d, c, |, d, b, c½)\
+                                                  //| d, c, |, d, b, c½)|
   PianoPlayer.play(voice1)
   CelloPlayer.play(voice2)
 }

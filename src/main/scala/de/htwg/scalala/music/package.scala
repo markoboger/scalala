@@ -1,9 +1,14 @@
 package de.htwg.scalala
 
+import de.htwg.scalala.music.{Music, MusicElem, MusicSeq}
+
 package object music {
 
-  def play(elems: MusicElem*): Unit = elems.map(elem => Piano.play(elem))
-  def play(seq: MusicSeq): Unit = seq.map { elem => Piano.play(elem) }
+  def play(musicSeq: Music*): Unit = musicSeq.map(music => music match{
+    case elem:MusicElem =>  Piano.play(elem)
+    case seq:MusicSeq =>seq.map( elem => Piano.play(elem))
+  })
+ // def play(seq: MusicSeq): Unit = seq.map { elem => Piano.play(elem) }
  
   val Piano = Instrument(name = "Piano", instrumentID = 0, channelID=0)
   val Marimba = Instrument(name = "Marimba", instrumentID = 13, channelID=1)
