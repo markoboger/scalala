@@ -3,7 +3,10 @@ package de.htwg.scalala.music
 import org.scalatest.WordSpec
 import org.scalatest.Matchers
 import scala.language.postfixOps
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ChordSpec extends WordSpec with Matchers {
 
   "A Chord" should {
