@@ -2,9 +2,15 @@ package de.htwg.scalala.music
 
 import de.htwg.scalala.midi.MidiPlayer
 
-trait MusicSeq extends Music with Traversable[Music]  {
+trait MusicSeq extends Music with Traversable[Music] {
+  var repeat = 1
+  var pattern = Pattern(1)
   def foreach[U](f: Music => U) = f(this)
-  def play(instrument:Instrument=Piano) = seq.foreach(_.play(instrument))
+  def play(instrument: Instrument = Piano, volume: Int) = for (i <- 1 to repeat; part <- pattern) {
+    seq.foreach(_.play(instrument, volume = volume * part))
+  }
+  def *(_pattern: Pattern): MusicSeq = { pattern = _pattern; this }
+  def *(rep: Int): MusicSeq = { repeat = repeat * rep; this }
 }
 
 case class Tune(override val seq: Music*) extends MusicSeq {

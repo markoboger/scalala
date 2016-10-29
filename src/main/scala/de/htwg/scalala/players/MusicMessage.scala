@@ -1,4 +1,4 @@
-package de.htwg.scalala.actors
+package de.htwg.scalala.players
 
 import akka.actor._
 import de.htwg.scalala.music._

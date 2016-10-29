@@ -2,18 +2,28 @@ package de.htwg.scalala.music
 
 import de.htwg.scalala.midi.MidiPlayer
 
-case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int = Context.volume) extends MusicElem {
+case class Key(
+    val midiNumber: Int,
+    repeat: Int = 1,
+    pattern: Pattern = Pattern(1),
+    time: Double = Context.fraction,
+    volume: Int = Context.volume) extends MusicElem {
   require(0 <= midiNumber && midiNumber <= 128)
   require(0 <= volume && volume <= 100)
 
-  def play(instrument: Instrument=Piano):Unit = instrument.midiPlayer.play(key = midiNumber, duration = duration, volume)
+  def play(instrument: Instrument = Piano, volume:Int=volume): Unit = for (i <- 1 to repeat; part <- pattern) {
+    instrument.midiPlayer.play(key = midiNumber, duration = duration, volume=volume*part)
+  }
 
-  val keynumber = midiNumber%12
-  val octave = midiNumber/12 -1
+  def *(pattern: Pattern): Key = copy(pattern = pattern)
+  def *(repetitions: Int): Key = copy(repeat = repetitions)
+
+  val keynumber = midiNumber % 12
+  val octave = midiNumber / 12 - 1
 
   def sharp = Key(midiNumber + 1)
   def flat = Key(midiNumber - 1)
-  def dot = copy(time=time*1.5)
+  def dot = copy(time = time * 1.5)
 
   def speed(t: Double) = { copy(time = t) }
 
@@ -53,7 +63,7 @@ case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int
   def aug: Chord = chord(ChordQuality.Augmented)
   def maj7 = chord(ChordQuality.MajorSeventh)
   def min7 = chord(ChordQuality.MinorSeventh)
-  
+
   val keynumberToString = Map(
     0 -> "c",
     1 -> "c\u266F",
@@ -91,12 +101,12 @@ case class Key(val midiNumber: Int, time: Double = Context.fraction, volume: Int
     0.0625 -> "1/16",
     0.0 -> "|")
 
-  override def toString = if (midiNumber==128) "|" else if (volume == 0) "-" else keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)
+  override def toString = if (midiNumber == 128) "|" else if (volume == 0) "-" else keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)
   override def equals(that: Any): Boolean =
     that match {
       case that: Key => (this.midiNumber == that.midiNumber) && (this.time == that.time)
-      case _ => false
-   }  
+      case _         => false
+    }
 }
 
 object Key {

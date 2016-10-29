@@ -18,7 +18,7 @@ class MidiPlayerSpec extends WordSpec {
     }
     "play a set of Keys simultaneously, needed for chords" in {
       val set = Set(new Key(60), new Key(64), new Key(67))
-      midiplayer.play(set)
+      midiplayer.play(set, 75)
     }
     "start and stop a key with some delay inbetween. This is needed to play several keys at once." in {
       midiplayer.start(60)

@@ -46,7 +46,7 @@ class KeySpec extends WordSpec with Matchers {
     }
     "should have a concise and clear text representation" in {
       c.toString should be("c")
-      cis.toString should be("c\u266F" )
+      cis.toString should be("c\u266F")
       c2.toString should be("c\u00BD")
       Key(60 + 12 * 5).toString should be("c\"\"'")
       (c++).toString should be("c\"")
@@ -68,6 +68,12 @@ class KeySpec extends WordSpec with Matchers {
       c.min should be(Chord(c, dis, g))
       c.dur should be(c.maj)
       c.mol should be(c.min)
+    }
+    "should easily repeatable by multiplication" in {
+      c * 2 should be(Key(60, repeat = 2))
+    }
+    "should apply to a pattern" in {
+      c * Pattern(1, 1, 0, 1) should be(Key(60, pattern = Pattern(1, 1, 0, 1)))
     }
   }
   "Default Keys" should {
@@ -101,6 +107,13 @@ class KeySpec extends WordSpec with Matchers {
     }
     "should be possible on an instrument" in {
       melody.play(Guitar)
+    }
+  }
+  "Playing a pattern" should {
+    "be possible" in {
+      play(c16 * Pattern(1, 1, 0, 1))
+      play(c16.mol * Pattern(1, 1, 0, 1))
+      play(Tune(c) * Pattern(1, 1, 0, 1))
     }
   }
 }
