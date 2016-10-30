@@ -14,6 +14,7 @@ trait MusicSeq extends Music with Traversable[Music] {
   def *(rep: Int): MusicSeq = { repeat = repeat * rep; this }
   override def size = this.seq.size
   def choose = seq.toIndexedSeq(generator.nextInt(size))
+
 }
 
 case class Tune(override val seq: Music*) extends MusicSeq {

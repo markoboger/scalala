@@ -1,8 +1,8 @@
 package de.htwg.scalala.music
 
 case class Scale(base: Key, scaleType: ScaleType.Value = ScaleType.Major)  extends MusicSeq{
-
-  override val seq: Vector[Key] = ScaleType.scaleVector(scaleType).map(i => Key(base.midiNumber + i))
+  
+  override val seq: Vector[Key] = ScaleType.scaleVector(scaleType).map(i => base.copy(midiNumber=base.midiNumber + i))
   override def toString = base .toString + "Scale"
 }
 

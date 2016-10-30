@@ -13,6 +13,7 @@ package object music {
     val index = generator.nextInt(music.size)
     music.seq.toIndexedSeq(index)
   }
+  def loop[A](n: Int)(f: => A) { if (n > 0) { f; loop(n - 1)(f) } }
 
   val Piano = Instrument(name = "Piano", instrumentID = 0, channelID = 0)
   val Marimba = Instrument(name = "Marimba", instrumentID = 13, channelID = 1)
