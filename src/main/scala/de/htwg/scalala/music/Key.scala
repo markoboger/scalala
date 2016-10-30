@@ -63,7 +63,7 @@ case class Key(
   def aug: Chord = chord(ChordQuality.Augmented)
   def maj7 = chord(ChordQuality.MajorSeventh)
   def min7 = chord(ChordQuality.MinorSeventh)
-
+    
   val keynumberToString = Map(
     0 -> "c",
     1 -> "c\u266F",

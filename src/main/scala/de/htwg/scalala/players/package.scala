@@ -8,8 +8,8 @@ package object players {
   
     def player(instrument:Instrument, name:String="") :MusicPlayer= {
       
-      val actor = system.actorOf(Props(MusicActor(instrument)), name = if (name=="") instrument.toString+"Actor" else name)
-      TypedActor(system).typedActorOf(TypedProps(classOf[MusicPlayerImpl], new MusicPlayerImpl(actor)), name = if (name=="") instrument.toString+"Player" else name)
+      val actor = system.actorOf(Props(MusicActor(instrument)), name = if (name=="") instrument.toString+"Actor" else name+"Actor")
+      TypedActor(system).typedActorOf(TypedProps(classOf[MusicPlayerImpl], new MusicPlayerImpl(actor)), name = if (name=="") instrument.toString+"Player" else name+"Player")
     }
 
   val PianoPlayer: MusicPlayer = player(Piano)
@@ -23,10 +23,11 @@ package object players {
   val TrumpetPlayer = player(Trumpet)
   val TubaPlayer = player(Tuba)
   val HornPlayer = player(Horn)
-  val DrumPlayer = player(Drum)
   val SaxPlayer = player(Sax)
   val OboePlayer = player(Oboe)
   val ClarinetPlayer= player(Clarinet)
   val FlutePlayer = player(Flute)
+  
+   val DrumPlayer = player(Drum)
 
 }

@@ -5,7 +5,8 @@ import scala.language.postfixOps
  
 object LordOfTheRingsPiano {
 
-  val LeftPiano = player(Piano, "LeftPiano")      //> akka.actor.InvalidActorNameException: actor name [LeftPiano] is not unique!
+  val LeftPiano = player(Piano, "LeftPiano654")   //> akka.actor.InvalidActorNameException: actor name [LeftPiano654] is not uniqu
+                                                  //| e!
                                                   //| 	at akka.actor.dungeon.ChildrenContainer$NormalChildrenContainer.reserve(
                                                   //| ChildrenContainer.scala:129)
                                                   //| 	at akka.actor.dungeon.Children$class.reserveChild(Children.scala:130)
@@ -21,7 +22,7 @@ object LordOfTheRingsPiano {
                                                   //| 	at akka.actor.TypedActorExtension.createActorRefProxy(TypedActor.scala:6
                                                   //| 79)
                                                   //| 	at akka.actor.TypedActorFactory$class.typedActorOf(TypedActor.scala:88)
-                                                  //| 	at akka.actor.TypedActorExtension.typedActor
+                                                  //| 	at akka.actor.TypedActorExtension.ty
                                                   //| Output exceeds cutoff limit.-
   val RightPiano  = player(Piano, "RightPiano")
   var right = Line(d16, e16, fis, a, fis, e8, d2.dot, fis8, a8, Chord(d1, g1, b1), d8, c, a, Chord(a1-, d2, fis2))

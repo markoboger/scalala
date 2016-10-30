@@ -1,30 +1,72 @@
 package de.htwg.scalala
 
-import de.htwg.scalala.music.{Music, MusicElem, MusicSeq}
+import de.htwg.scalala.music.{ Music, MusicElem, MusicSeq }
 
 package object music {
 
-  def play(musicSeq: Music*): Unit = musicSeq.map(music => music match{
-    case elem:MusicElem =>  Piano.play(elem, volume=Context.volume)
-    case seq:MusicSeq =>seq.map( elem => Piano.play(elem, Context.volume))
+  def play(musicSeq: Music*): Unit = musicSeq.map(music => music match {
+    case elem: MusicElem => Piano.play(elem, volume = Context.volume)
+    case seq: MusicSeq   => seq.map(elem => Piano.play(elem, Context.volume))
   })
- 
-  val Piano = Instrument(name = "Piano", instrumentID = 0, channelID=0)
-  val Marimba = Instrument(name = "Marimba", instrumentID = 13, channelID=1)
-  val Xylophone = Instrument(name = "Xylophone", instrumentID = 14, channelID=2)
-  val Organ = Instrument(name = "Organ", instrumentID = 20, channelID=3)
-  val Guitar = Instrument(name = "Guitar", instrumentID = 25, channelID=4)
-  val Bass = Instrument(name = "Bass", instrumentID = 33, channelID=5)
-  val Violin = Instrument(name = "Violin", instrumentID = 41, channelID=6)
-  val Cello = Instrument(name = "Cello", instrumentID = 43,channelID=7)
-  val Trumpet = Instrument(name = "Trumpet", instrumentID = 57, channelID=8)
-  val Tuba = Instrument(name = "Tuba", instrumentID = 59, channelID=9)
-  val Drum = Instrument(name = "Drum", instrumentID =  115, channelID=10)
-  val Horn = Instrument(name = "Horn", instrumentID = 61, channelID=11)
-  val Sax = Instrument(name = "Sax", instrumentID = 68, channelID=12)
-  val Oboe = Instrument(name = "Oboe", instrumentID = 69, channelID=13)
-  val Clarinet = Instrument(name = "Clarinet", instrumentID = 72, channelID=14)
-  val Flute = Instrument(name = "Flute", instrumentID = 74, channelID=15)
+  def choose(music: MusicSeq): Music = {
+    val generator = scala.util.Random
+    val index = generator.nextInt(music.size)
+    music.seq.toIndexedSeq(index)
+  }
+
+  val Piano = Instrument(name = "Piano", instrumentID = 0, channelID = 0)
+  val Marimba = Instrument(name = "Marimba", instrumentID = 13, channelID = 1)
+  val Xylophone = Instrument(name = "Xylophone", instrumentID = 14, channelID = 2)
+  val Organ = Instrument(name = "Organ", instrumentID = 20, channelID = 3)
+  val Guitar = Instrument(name = "Guitar", instrumentID = 25, channelID = 4)
+  val Bass = Instrument(name = "Bass", instrumentID = 33, channelID = 5)
+  val Violin = Instrument(name = "Violin", instrumentID = 41, channelID = 6)
+  val Cello = Instrument(name = "Cello", instrumentID = 43, channelID = 7)
+  val Trumpet = Instrument(name = "Trumpet", instrumentID = 57, channelID = 8)
+  val Tuba = Instrument(name = "Tuba", instrumentID = 59, channelID = 10)
+  val Horn = Instrument(name = "Horn", instrumentID = 61, channelID = 11)
+  val Sax = Instrument(name = "Sax", instrumentID = 68, channelID = 12)
+  val Oboe = Instrument(name = "Oboe", instrumentID = 69, channelID = 13)
+  val Clarinet = Instrument(name = "Clarinet", instrumentID = 72, channelID = 14)
+  val Flute = Instrument(name = "Flute", instrumentID = 74, channelID = 15)
+
+  val Drum = Instrument(name = "Drum", instrumentID = 115, channelID = 9)
+
+  val TomLowFloor = Key(midiNumber = 41)
+  val TomHighFloor = Key(midiNumber = 43)
+  val TomLow = Key(midiNumber = 45)
+  val TomLowMid = Key(midiNumber = 47)
+  val TomHiMid = Key(midiNumber = 48)
+  val TomHigh = Key(midiNumber = 50)
+
+  val DrumAcousticBass = Key(35)
+  val DrumBass = Key(36)
+
+  val SnareAcoustic = Key(38)
+  val SnareElectric = Key(40)
+
+  val SideStick = Key(37)
+  val HandClap = Key(39)
+
+  val HiHatClosed = Key(42)
+  val HiHatPedal = Key(44)
+  val HiHatOpen = Key(46)
+
+  val CymbalCrash = Key(49)
+  val CymbalRide = Key(51)
+  val CymbalChinese = Key(52)
+  val CymbalSplash = Key(55)
+  val CymbalCrash2 = Key(57)
+  val CymbalRide2 = Key(59)
+
+  val BongoHi = Key(60)
+  val BongoLow = Key(61)
+
+  val CongaMuteHi = Key(62)
+  val CongaOpenHi = Key(63)
+  val CongaLow = Key(64)
+
+  val CowBell = Key(56)
 
   val c = Key(midiNumber = 60)
   val d = Key(midiNumber = 62)
