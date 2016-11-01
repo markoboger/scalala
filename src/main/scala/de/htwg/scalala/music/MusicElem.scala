@@ -1,11 +1,9 @@
 package de.htwg.scalala.music
 
+import scala.concurrent.duration._
+import scala.language.postfixOps
+
 trait MusicElem extends Music {
   val ticks:Int
-  def duration = {
-    val beatsPerMinute = Context.bpm
-    val millisecondsInMinute = 1000 * 60
-    val measureDuration = (millisecondsInMinute / beatsPerMinute) * 4
-    (ticks * measureDuration).toInt
-  }
+  def duration =  ticks * Context.tickduration
 }

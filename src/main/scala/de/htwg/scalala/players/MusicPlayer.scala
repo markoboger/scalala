@@ -20,16 +20,16 @@ case class MusicActor(instrument: Instrument) extends Actor {
       tickList.head match {
         case None               =>
         case Some(key: Key)     => playKey(key)
-        case Some(chord: Chord) => chord.set.foreach(key => playKey(key.copy(ticks=chord.ticks, volume=chord.volume)))
-        case Some(pause: Pause) =>
+        case Some(chord: Chord) => chord.set.foreach(key => playKey(key.copy(ticks = chord.ticks, volume = chord.volume)))
         case _                  =>
       }
+      tickList = tickList.tail
     }
-    tickList = tickList.tail
+
   }
   def playKey(key: Key) = {
     instrument.midiPlayer.start(key.midiNumber, key.volume)
-    system.scheduler.scheduleOnce(Context.tickduration) { instrument.midiPlayer.stop(key.midiNumber, key.volume) }
+    system.scheduler.scheduleOnce(Context.tickduration * key.ticks) { instrument.midiPlayer.stop(key.midiNumber, key.volume) }
   }
 }
 

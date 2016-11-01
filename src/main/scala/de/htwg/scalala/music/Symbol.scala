@@ -22,7 +22,6 @@ case class Pause(override val ticks: Int = 4) extends Symbol {
 }
 
 case object Bar extends Symbol  {
-  override val ticks: Int = 0
   override def play(instrument: Instrument = Piano, volume: Int = 0) = instrument.midiPlayer.play(key = 1, duration = duration, volume = 0)
   override def toString = "|"
    def toTickList = List(None)
