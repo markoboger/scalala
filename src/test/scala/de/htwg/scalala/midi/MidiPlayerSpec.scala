@@ -6,6 +6,8 @@ import org.scalatest.WordSpec
 import org.scalatest.Matchers
 import scala.language.postfixOps
 import de.htwg.scalala.music._
+import scala.concurrent.duration._
+import scala.language.postfixOps
 
 class MidiPlayerSpec extends WordSpec {
 
@@ -13,7 +15,7 @@ class MidiPlayerSpec extends WordSpec {
     val midiplayer = new MidiPlayer
 
     "play Keys encoded in midiKeys (0-127, c is key 60) for a duration in milliseconds" in {
-      midiplayer.play(key = 60, duration = 100)
+      midiplayer.play(key = 60, duration = 100 milliseconds)
       Thread.sleep(100)
     }
     "play a set of Keys simultaneously, needed for chords" in {
@@ -27,7 +29,7 @@ class MidiPlayerSpec extends WordSpec {
     }
     "be able to change instrument" in {
       midiplayer.changeToInstrument(40)
-      midiplayer.play(60, 100)
+      midiplayer.play(60, 100 milliseconds)
       Thread.sleep(200)
     }
     

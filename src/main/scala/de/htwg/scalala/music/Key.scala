@@ -1,18 +1,23 @@
 package de.htwg.scalala.music
 
 import de.htwg.scalala.midi.MidiPlayer
+import scala.concurrent.duration._
+import scala.language.postfixOps
 
 case class Key(
     val midiNumber: Int,
     repeat: Int = 1,
     pattern: Pattern = Pattern(1),
-    time: Double = Context.fraction,
+    ticks:Int = 4,
     volume: Int = Context.volume) extends MusicElem {
   require(0 <= midiNumber && midiNumber <= 128)
   require(0 <= volume && volume <= 100)
 
   def play(instrument: Instrument = Piano, volume:Int=volume): Unit = for (i <- 1 to repeat; part <- pattern) {
     instrument.midiPlayer.play(key = midiNumber, duration = duration, volume=volume*part)
+  }
+  def toTickList:List[Option[Music]] = {
+      (1 to repeat).toList.flatMap(x=> pattern.flatMap(part=>Some(this.copy(volume=volume*part))::((1 until ticks).toList.map(x=>None))))
   }
 
   def *(pattern: Pattern): Key = copy(pattern = pattern)
@@ -23,9 +28,9 @@ case class Key(
 
   def sharp = Key(midiNumber + 1)
   def flat = Key(midiNumber - 1)
-  def dot = copy(time = time * 1.5)
+  def dot = copy(ticks = (ticks * 1.5).toInt)
 
-  def speed(t: Double) = { copy(time = t) }
+  def ticks(ticks: Int) = { copy(ticks = ticks) }
 
   def + = copy(midiNumber = midiNumber + 12)
   def ++ = copy(midiNumber = midiNumber + 24)
@@ -91,22 +96,21 @@ case class Key(
     7 -> "\"'",
     8 -> "\"\"",
     9 -> "\"\"'")
-  val timeToString = Map(
-    1.0 -> "\u1D15D",
-    0.75 -> "\u00BD\u00B7",
-    0.5 -> "\u00BD",
-    0.375 -> "\u00B7",
-    0.25 -> "",
-    0.875 -> "1/8\u00B7",
-    0.125 -> "1/8",
-    0.09375 -> "1/16\u00B7",
-    0.0625 -> "1/16",
-    0.0 -> "|")
+  val ticksToString = Map(
+    16 -> "\u1D15D",
+    12 -> "\u00BD\u00B7",
+    8 -> "\u00BD",
+    6 -> "\u00B7",
+    4 -> "",
+    3 -> "1/8\u00B7",
+    2 -> "1/8",
+    1 -> "1/16",
+    0 -> "|")
 
-  override def toString = if (midiNumber == 128) "|" else if (volume == 0) "-" else keynumberToString(keynumber) + octaveToString(octave) + timeToString(time)
+  override def toString = if (midiNumber == 128) "|" else if (volume == 0) "-" else keynumberToString(keynumber) + octaveToString(octave) + ticksToString(ticks)
   override def equals(that: Any): Boolean =
     that match {
-      case that: Key => (this.midiNumber == that.midiNumber) && (this.time == that.time)
+      case that: Key => (this.midiNumber == that.midiNumber) && (this.ticks == that.ticks)
       case _         => false
     }
 }

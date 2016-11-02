@@ -12,8 +12,8 @@ class KeySpec extends WordSpec with Matchers {
   "Keys" should {
     "be easy to create from the REPL" in {
       val key1 = Key(60)
-      val key4 = Key(midiNumber = 60, time = 0.25)
-      val key5 = Key(midiNumber = 60, time = 0.25, volume = 75)
+      val key4 = Key(midiNumber = 60, ticks = 4)
+      val key5 = Key(midiNumber = 60, ticks = 4, volume = 75)
     }
     "should have a sharp and a flat variant" in {
       c.sharp should be(cis)
@@ -24,11 +24,11 @@ class KeySpec extends WordSpec with Matchers {
       (c?).volume should be < c.volume
     }
     "should have different times ( 1/2, 1/4, 1/8, 1/16)" in {
-      c1 should be(Key(60, time = 1))
-      c2 should be(Key(60, time = 0.5))
-      c4 should be(Key(60, time = 0.25))
-      c8 should be(Key(60, time = 0.125))
-      c16 should be(Key(60, time = 0.0625))
+      c1 should be(Key(60, ticks = 16))
+      c2 should be(Key(60, ticks = 8))
+      c4 should be(Key(60, ticks = 4))
+      c8 should be(Key(60, ticks = 8))
+      c16 should be(Key(60, ticks = 16))
     }
     "should be equal if key and time are equal" in {
       Key(60) should be(Key(60))

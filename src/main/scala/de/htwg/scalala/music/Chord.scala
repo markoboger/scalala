@@ -6,7 +6,8 @@ case class Chord(
     set: Set[Key],
     repeat: Int = 1,
     pattern: Pattern = Pattern(1),
-    time: Double = 0.25,
+    ticks: Int = 4,
+    volume:Int=Context.volume,
     name: String = "") extends MusicElem {
   def play(instrument: Instrument = Piano, volume: Int): Unit = for (i <- 1 to repeat; part <- pattern) {
     instrument.midiPlayer.play(set, volume=volume*part)
@@ -19,6 +20,7 @@ case class Chord(
       case that: Chord => (this.set == that.set)
       case _           => false
     }
+  def toTickList = (1 to repeat).toList.flatMap(x=> pattern.flatMap(part=>Some(this.copy(volume=volume*part))::((1 until ticks).toList.map(x=>None))))
 }
 
 object Chord {

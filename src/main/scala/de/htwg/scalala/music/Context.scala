@@ -1,6 +1,8 @@
 package de.htwg.scalala.music
 
 import de.htwg.scalala.midi.MidiPlayer
+import scala.concurrent.duration._
+import scala.language.postfixOps
 
 object Context {
 
@@ -16,5 +18,9 @@ object Context {
   require(0 < volume - softDecrease)
   val midi_lowestkey = 0
   val midi_highestkey = 127
+  
+  val beatsPerMinute = Context.bpm
+  val millisecondsInMinute = 1000 * 60 milliseconds
+  val tickduration = (millisecondsInMinute / beatsPerMinute)/4
 
 }
