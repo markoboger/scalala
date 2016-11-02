@@ -11,8 +11,9 @@ case class MusicActor(instrument: Instrument) extends Actor {
   var tickList: List[Option[Music]] = List()
 
   def receive = {
-    case Tick               => playNextKey
+    case Tick(tickNum)               => playNextKey
     case PlayNow(_tickList) => tickList = _tickList
+    case PlayAt(tick, _tickList) => tickList = (1 until tick).toList.map(x=>None):::_tickList
   }
 
   def playNextKey = {
@@ -36,11 +37,13 @@ case class MusicActor(instrument: Instrument) extends Actor {
 trait MusicPlayer {
   val actor: ActorRef
   def play(music: Music)
+  def playAt(tick:Int, music:Music)
 }
 
 case class MusicPlayerImpl(musicActor: ActorRef) extends MusicPlayer {
   val actor = musicActor
   def play(music: Music): Unit = musicActor ! PlayNow(music.toTickList)
+  def playAt(tick:Int, music:Music):Unit = musicActor ! PlayAt(tick, music.toTickList) 
 }
 
 
