@@ -1,11 +1,6 @@
 import de.htwg.scalala.music._
 import de.htwg.scalala.players._
-//package de.htwg.scalala.examples
 
-
-
-
-object Duet {
 
 	Conductor!Add(PianoPlayer)
 	Conductor!Add(CelloPlayer)
@@ -18,4 +13,3 @@ object Duet {
                                                   //| c, g, |, a, f, c, g, |, e, e, d, c, |, d, b, c½)|
   PianoPlayer.play(voice1)
   CelloPlayer.play(voice2)
-}

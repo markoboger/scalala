@@ -1,10 +1,7 @@
-//package de.htwg.scalala.music
-
 import scala.language.postfixOps
 import de.htwg.scalala.players._
 import de.htwg.scalala.music._
 import akka.actor._
-object Quartett {
 
   Conductor ! Add(PianoPlayer)
   Conductor ! Add(DrumPlayer)
@@ -17,4 +14,3 @@ object Quartett {
   ViolinPlayer.playAt(32,Tune(p4, f, e, p4) * 5)
   CelloPlayer.playAt(48, Tune(c2, e, p4) * 4)
 
-}

@@ -1,9 +1,8 @@
-package de.htwg.scalala.music
-
+import de.htwg.scalala.music._
 import de.htwg.scalala.players._
 import scala.language.postfixOps
  
-object LordOfTheRingsPiano {
+
 
   val LeftPiano = player(Piano, "LeftPiano")      //> LeftPiano  : de#29.htwg#17819.scalala#17821.players#17829.MusicPlayer#166398
                                                   //| 84 = Actor[akka://Orchestra/user/LeftPianoPlayer#-1587307681]
@@ -25,4 +24,3 @@ object LordOfTheRingsPiano {
   RightPiano.play(right)
   LeftPiano.play(left)
   DrumPlayer.play(c*Pattern(1,0,0,0)*4)
-}
