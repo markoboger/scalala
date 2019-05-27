@@ -3,10 +3,7 @@ package de.htwg.scalala.music
 import org.scalatest.WordSpec
 import org.scalatest.Matchers
 import scala.language.postfixOps
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class MusicSeqSpec extends WordSpec with Matchers {
 
   "MusicSeq is used for nesting and" should {

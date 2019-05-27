@@ -1,5 +1,7 @@
-package de.htwg.scalala.music
+//package de.htwg.scalala.music
 
+import de.htwg.scalala.music._
+import de.htwg.scalala.players._
 import scala.language.postfixOps
 
 object Herbstlied {

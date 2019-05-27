@@ -1,11 +1,12 @@
-package de.htwg.scalala.examples
-
 import de.htwg.scalala.music._
 import de.htwg.scalala.players._
-import scala.language.postfixOps
+//package de.htwg.scalala.examples
+
+
 
 
 object Duet {
+
 	Conductor!Add(PianoPlayer)
 	Conductor!Add(CelloPlayer)
 	Conductor!Start                           //> Conductor Started

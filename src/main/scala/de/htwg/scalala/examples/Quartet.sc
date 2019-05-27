@@ -1,9 +1,9 @@
-package de.htwg.scalala.music
+//package de.htwg.scalala.music
 
 import scala.language.postfixOps
 import de.htwg.scalala.players._
+import de.htwg.scalala.music._
 import akka.actor._
-
 object Quartett {
 
   Conductor ! Add(PianoPlayer)
