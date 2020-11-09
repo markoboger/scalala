@@ -24,8 +24,8 @@ class KeySpec extends WordSpec with Matchers {
       c1 should be(Key(60, ticks = 16))
       c2 should be(Key(60, ticks = 8))
       c4 should be(Key(60, ticks = 4))
-      c8 should be(Key(60, ticks = 8))
-      c16 should be(Key(60, ticks = 16))
+      c8 should be(Key(60, ticks = 2))
+      c16 should be(Key(60, ticks = 1))
     }
     "should be equal if key and time are equal" in {
       Key(60) should be(Key(60))
