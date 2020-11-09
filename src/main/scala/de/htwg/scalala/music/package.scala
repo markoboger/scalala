@@ -1,7 +1,5 @@
 package de.htwg.scalala
 
-import de.htwg.scalala.music.{ Music, MusicElem, MusicSeq }
-
 package object music {
 
   def play(musicSeq: Music*): Unit = musicSeq.map(music => music match {

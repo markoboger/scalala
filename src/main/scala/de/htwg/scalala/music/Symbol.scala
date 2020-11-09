@@ -1,7 +1,5 @@
 package de.htwg.scalala.music
 
-import de.htwg.scalala.midi.MidiPlayer
-
 trait Symbol extends MusicElem {
   val ticks = 0
   override def play(instrument: Instrument = Piano, volume: Int) = {} // play nothing for Sympols

@@ -1,7 +1,5 @@
 package de.htwg.scalala.music
 
-import de.htwg.scalala.midi.MidiPlayer
-
 trait MusicSeq extends Music with Traversable[Music] {
   private val generator = scala.util.Random
   var repeat = 1
@@ -18,7 +16,6 @@ trait MusicSeq extends Music with Traversable[Music] {
 }
 
 case class Tune(override val seq: Music*) extends MusicSeq {
-
   override def toString: String = seq.toString.replace("WrappedArray(", "(").replace(")", ")")
 }
 case class Line(override val seq: Music*) extends MusicSeq {

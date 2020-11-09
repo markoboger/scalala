@@ -1,7 +1,5 @@
 package de.htwg.scalala.music
 
-import de.htwg.scalala.midi.MidiPlayer
-import scala.concurrent.duration._
 import scala.language.postfixOps
 
 case class Key(

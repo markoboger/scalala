@@ -1,7 +1,5 @@
 package de.htwg.scalala.music
 
-import akka.actor._
-import de.htwg.scalala.players._
 import de.htwg.scalala.midi.MidiPlayer
 
 case class Instrument(name: String, instrumentID: Int, channelID: Int = 0) {

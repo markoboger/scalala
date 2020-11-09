@@ -1,7 +1,5 @@
 package de.htwg.scalala.music
 
-import de.htwg.scalala.midi.MidiPlayer
-
 case class Chord(
     set: Set[Key],
     repeat: Int = 1,
